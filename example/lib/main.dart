@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(const MyApp());
 
 final material3Notifier = ValueNotifier<bool>(true);
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
             colorSchemeSeed: Colors.teal,
             textTheme: GoogleFonts.ralewayTextTheme(),
           ),
-          home: MyHomePage(),
+          home: const MyHomePage(),
         );
       },
     );
@@ -35,14 +37,16 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Giffy Example"),
+        title: const Text("Giffy Example"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
+      body: const Padding(
+        padding: EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -53,8 +57,8 @@ class MyHomePage extends StatelessWidget {
             TypedExample(type: GiffyType.image),
             SizedBox(height: 30),
             Text('Rive Giffy'),
-            SizedBox(height: 10),
-            TypedExample(type: GiffyType.rive),
+            // SizedBox(height: 10),
+            // TypedExample(type: GiffyType.rive),
             SizedBox(height: 30),
             Text('Lottie Giffy'),
             SizedBox(height: 10),
@@ -67,7 +71,7 @@ class MyHomePage extends StatelessWidget {
 }
 
 class MaterialToggleButtons extends StatelessWidget {
-  const MaterialToggleButtons({Key? key}) : super(key: key);
+  const MaterialToggleButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +91,6 @@ class MaterialToggleButtons extends StatelessWidget {
 
     return ToggleButtons(
       isSelected: [!useMaterial3, useMaterial3],
-      children: [Text('Material 2'), Text('Material 3')],
       borderRadius: borderRadius,
       borderColor: borderColor,
       selectedBorderColor: borderColor,
@@ -101,25 +104,29 @@ class MaterialToggleButtons extends StatelessWidget {
       onPressed: (index) {
         material3Notifier.value = index == 1;
       },
+      children: const [
+        Text('Material 2'),
+        Text('Material 3'),
+      ],
     );
   }
 }
 
 enum GiffyType {
   image,
-  rive,
+  // rive,
   lottie;
 
   Widget when({
     required Widget Function() image,
-    required Widget Function() rive,
+    // required Widget Function() rive,
     required Widget Function() lottie,
   }) {
     switch (this) {
       case GiffyType.image:
         return image();
-      case GiffyType.rive:
-        return rive();
+      // case GiffyType.rive:
+      //   return rive();
       case GiffyType.lottie:
         return lottie();
     }
@@ -139,7 +146,7 @@ class TypedExample extends StatelessWidget {
     final useMaterial3 = Theme.of(context).useMaterial3;
 
     final image = GiffyModel.image(context);
-    final rive = GiffyModel.rive(context);
+    // final rive = GiffyModel.rive(context);
     final lottie = GiffyModel.lottie(context);
 
     Widget buildDialog() {
@@ -152,22 +159,22 @@ class TypedExample extends StatelessWidget {
             actions: image.actions,
           );
         },
-        rive: () {
-          return GiffyDialog.rive(
-            rive.giffy as RiveAnimation,
-            giffyBuilder: (context, rive) {
-              return ClipRRect(
-                borderRadius: useMaterial3
-                    ? const BorderRadius.all(Radius.circular(16))
-                    : const BorderRadius.all(Radius.circular(4)),
-                child: SizedBox(height: 200, child: rive),
-              );
-            },
-            title: rive.title,
-            content: rive.content,
-            actions: rive.actions,
-          );
-        },
+        // rive: () {
+        //   return GiffyDialog.rive(
+        //     rive.giffy as RiveWidget,
+        //     giffyBuilder: (context, rive) {
+        //       return ClipRRect(
+        //         borderRadius: useMaterial3
+        //             ? const BorderRadius.all(Radius.circular(16))
+        //             : const BorderRadius.all(Radius.circular(4)),
+        //         child: SizedBox(height: 200, child: rive),
+        //       );
+        //     },
+        //     title: rive.title,
+        //     content: rive.content,
+        //     actions: rive.actions,
+        //   );
+        // },
         lottie: () {
           return GiffyDialog.lottie(
             lottie.giffy as LottieBuilder,
@@ -189,22 +196,22 @@ class TypedExample extends StatelessWidget {
             actions: image.actions,
           );
         },
-        rive: () {
-          return GiffyBottomSheet.rive(
-            rive.giffy as RiveAnimation,
-            giffyBuilder: (context, rive) {
-              return ClipRRect(
-                borderRadius: useMaterial3
-                    ? const BorderRadius.all(Radius.circular(16))
-                    : const BorderRadius.all(Radius.circular(4)),
-                child: SizedBox(height: 200, child: rive),
-              );
-            },
-            title: rive.title,
-            content: rive.content,
-            actions: rive.actions,
-          );
-        },
+        // rive: () {
+        //   return GiffyBottomSheet.rive(
+        //     rive.giffy as RiveWidget,
+        //     giffyBuilder: (context, rive) {
+        //       return ClipRRect(
+        //         borderRadius: useMaterial3
+        //             ? const BorderRadius.all(Radius.circular(16))
+        //             : const BorderRadius.all(Radius.circular(4)),
+        //         child: SizedBox(height: 200, child: rive),
+        //       );
+        //     },
+        //     title: rive.title,
+        //     content: rive.content,
+        //     actions: rive.actions,
+        //   );
+        // },
         lottie: () {
           return GiffyBottomSheet.lottie(
             lottie.giffy as LottieBuilder,
@@ -216,13 +223,13 @@ class TypedExample extends StatelessWidget {
       );
     }
 
-    return Container(
+    return SizedBox(
       height: 36,
       child: Row(
         children: [
           Expanded(
             child: ElevatedButton(
-              child: Text('Show Dialog'),
+              child: const Text('Show Dialog'),
               onPressed: () {
                 showDialog(
                   context: context,
@@ -233,10 +240,10 @@ class TypedExample extends StatelessWidget {
               },
             ),
           ),
-          VerticalDivider(),
+          const VerticalDivider(),
           Expanded(
             child: ElevatedButton(
-              child: Text('Show Bottom Sheet'),
+              child: const Text('Show Bottom Sheet'),
               onPressed: () {
                 showModalBottomSheet(
                   context: context,
@@ -280,11 +287,11 @@ class GiffyModel {
         height: 200,
         fit: BoxFit.cover,
       ),
-      title: Text(
+      title: const Text(
         'Image Animation',
         textAlign: TextAlign.center,
       ),
-      content: Text(
+      content: const Text(
         'This is a image animation dialog box. This library helps you easily create fancy giffy dialog.',
         textAlign: TextAlign.center,
       ),
@@ -301,33 +308,33 @@ class GiffyModel {
     );
   }
 
-  factory GiffyModel.rive(BuildContext context) {
-    return GiffyModel(
-      giffy: RiveAnimation.network(
-        'https://cdn.rive.app/animations/vehicles.riv',
-        fit: BoxFit.cover,
-        placeHolder: Center(child: CircularProgressIndicator()),
-      ),
-      title: Text(
-        'Rive Animation',
-        textAlign: TextAlign.center,
-      ),
-      content: Text(
-        'This is a rive animation dialog box. This library helps you easily create fancy giffy dialog.',
-        textAlign: TextAlign.center,
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context, 'CANCEL'),
-          child: const Text('CANCEL'),
-        ),
-        TextButton(
-          onPressed: () => Navigator.pop(context, 'OK'),
-          child: const Text('OK'),
-        ),
-      ],
-    );
-  }
+  // factory GiffyModel.rive(BuildContext context) {
+  //   return GiffyModel(
+  //     giffy: const RiveWidgetBuilder(
+  //       fileLoader: FileLoader.fromUrl( 'https://cdn.rive.app/animations/vehicles.riv', riveFactory: riveFactory),
+  //       fit: BoxFit.cover,
+  //       placeHolder: Center(child: CircularProgressIndicator()),
+  //     ),
+  //     title: const Text(
+  //       'Rive Animation',
+  //       textAlign: TextAlign.center,
+  //     ),
+  //     content: const Text(
+  //       'This is a rive animation dialog box. This library helps you easily create fancy giffy dialog.',
+  //       textAlign: TextAlign.center,
+  //     ),
+  //     actions: [
+  //       TextButton(
+  //         onPressed: () => Navigator.pop(context, 'CANCEL'),
+  //         child: const Text('CANCEL'),
+  //       ),
+  //       TextButton(
+  //         onPressed: () => Navigator.pop(context, 'OK'),
+  //         child: const Text('OK'),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   factory GiffyModel.lottie(BuildContext context) {
     return GiffyModel(
@@ -336,11 +343,11 @@ class GiffyModel {
         fit: BoxFit.contain,
         height: 200,
       ),
-      title: Text(
+      title: const Text(
         'Lottie Animation',
         textAlign: TextAlign.center,
       ),
-      content: Text(
+      content: const Text(
         'This is a lottie animation dialog box. This library helps you easily create fancy giffy dialog.',
         textAlign: TextAlign.center,
       ),

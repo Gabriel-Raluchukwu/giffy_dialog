@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rive/rive.dart' as rive;
+import 'package:rive/rive.dart' hide Image;
 
 import 'entry_animation.dart';
 
@@ -306,12 +306,10 @@ class GiffyModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final defaultTitleTextStyle = theme.useMaterial3
-        ? theme.textTheme.headlineSmall
-        : theme.textTheme.titleLarge;
-    final defaultContentTextStyle = theme.useMaterial3
-        ? theme.textTheme.bodyMedium
-        : theme.textTheme.titleMedium;
+    final defaultTitleTextStyle =
+        theme.useMaterial3 ? theme.textTheme.headlineSmall : theme.textTheme.titleLarge;
+    final defaultContentTextStyle =
+        theme.useMaterial3 ? theme.textTheme.bodyMedium : theme.textTheme.titleMedium;
 
     String? label = semanticLabel;
     switch (theme.platform) {
@@ -329,8 +327,7 @@ class GiffyModal extends StatelessWidget {
     // children.
     const double fontSizeToScale = 14.0;
     final double effectiveTextScale =
-        MediaQuery.textScalerOf(context).scale(fontSizeToScale) /
-            fontSizeToScale;
+        MediaQuery.textScalerOf(context).scale(fontSizeToScale) / fontSizeToScale;
     final double paddingScaleFactor = _scalePadding(effectiveTextScale);
     final TextDirection? textDirection = Directionality.maybeOf(context);
 
@@ -369,8 +366,7 @@ class GiffyModal extends StatelessWidget {
         right: 24.0,
         bottom: content == null ? 20.0 : 0.0,
       );
-      final effectiveTitlePadding =
-          titlePadding?.resolve(textDirection) ?? defaultTitlePadding;
+      final effectiveTitlePadding = titlePadding?.resolve(textDirection) ?? defaultTitlePadding;
       titleWidget = Padding(
         padding: EdgeInsets.only(
           left: effectiveTitlePadding.left * paddingScaleFactor,
@@ -431,8 +427,7 @@ class GiffyModal extends StatelessWidget {
         child: OverflowBar(
           alignment: actionsAlignment ?? MainAxisAlignment.end,
           spacing: spacing,
-          overflowAlignment:
-              actionsOverflowAlignment ?? OverflowBarAlignment.end,
+          overflowAlignment: actionsOverflowAlignment ?? OverflowBarAlignment.end,
           overflowDirection: actionsOverflowDirection ?? VerticalDirection.down,
           overflowSpacing: actionsOverflowButtonSpacing ?? 0,
           children: actions!,
